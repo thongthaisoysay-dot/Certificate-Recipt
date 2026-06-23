@@ -161,6 +161,20 @@ async function sharePdfOrDownload(certificateData) {
   return "downloaded";
 }
 
+async function copyShareText() {
+  if (!currentCertificateData) {
+    alert("Please generate a document first.");
+    return;
+  }
+
+  try {
+    await navigator.clipboard.writeText(buildShareText(currentCertificateData));
+    alert("Share text copied. You can paste it into LINE or WeChat.");
+  } catch (error) {
+    alert("Copy failed. Please copy the text manually.");
+  }
+}
+
 function shareToLine() {
   if (!currentCertificateData) {
     alert("Please generate a document first.");
@@ -534,8 +548,30 @@ document.getElementById("exportPdfBtn").addEventListener("click", () => {
   exportPdf();
 });
 
+document.getElementById("sharePdfBtn").addEventListener("click", async () => {
+  if (!currentCertificateData) {
+    alert("Please generate a document first.");
+    return;
+  }
+
+  try {
+    const outcome = await sharePdfOrDownload(currentCertificateData);
+    if (outcome === "downloaded") {
+      alert("PDF downloaded. Send the file to the patient from your chat app.");
+    }
+  } catch (error) {
+    console.error("Share PDF failed:", error);
+    alert("Share PDF failed. Please try Export PDF instead.");
+  }
+});
+
 document.getElementById("shareBtn").addEventListener("click", () => {
   document.getElementById("shareMenu").classList.toggle("hidden");
+});
+
+document.getElementById("copyTextBtn").addEventListener("click", async () => {
+  await copyShareText();
+  document.getElementById("shareMenu").classList.add("hidden");
 });
 
 document.getElementById("shareLineBtn").addEventListener("click", () => {
