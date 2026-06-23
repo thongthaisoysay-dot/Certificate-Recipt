@@ -95,10 +95,12 @@ async function buildPdfFile(certificateData, shouldDownload = false) {
     throw new Error("PDF library failed to load");
   }
 
+  document.body.classList.add("pdf-export");
+
   const previewContainer = document.querySelector(".preview-container");
   const fileName = `${certificateData.certificateNo}.pdf`;
   const options = {
-    margin: [8, 8, 8, 8],
+    margin: [5, 5, 5, 5],
     filename: fileName,
     image: { type: "jpeg", quality: 0.98 },
     html2canvas: {
@@ -116,15 +118,19 @@ async function buildPdfFile(certificateData, shouldDownload = false) {
     },
   };
 
-  const worker = html2pdf().set(options).from(previewContainer);
-  const pdfDocument = await worker.toPdf().get("pdf");
-  const blob = pdfDocument.output("blob");
+  try {
+    const worker = html2pdf().set(options).from(previewContainer);
+    const pdfDocument = await worker.toPdf().get("pdf");
+    const blob = pdfDocument.output("blob");
 
-  if (shouldDownload) {
-    await worker.save();
+    if (shouldDownload) {
+      await worker.save();
+    }
+
+    return { blob, fileName };
+  } finally {
+    document.body.classList.remove("pdf-export");
   }
-
-  return { blob, fileName };
 }
 
 async function sharePdfOrDownload(certificateData) {

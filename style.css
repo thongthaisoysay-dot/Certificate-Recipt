@@ -717,6 +717,165 @@ body {
   break-before: page;
 }
 
+body.pdf-export .preview-container {
+  max-width: 100%;
+  margin: 0;
+  padding: 0;
+  gap: 0;
+}
+
+body.pdf-export .document-separator {
+  display: none;
+}
+
+body.pdf-export .document {
+  width: 100%;
+  border: none;
+  border-radius: 0;
+  box-shadow: none;
+  overflow: visible;
+}
+
+body.pdf-export .doc-topline {
+  height: 7px;
+}
+
+body.pdf-export .doc-brand-row {
+  padding: 14px 14px 0;
+}
+
+body.pdf-export .doc-brand-name {
+  font-size: 1.45rem;
+}
+
+body.pdf-export .doc-brand-sub {
+  font-size: 0.68rem;
+}
+
+body.pdf-export .doc-brand-spacer {
+  width: 90px;
+}
+
+body.pdf-export .doc-divider {
+  margin: 8px 14px 10px;
+}
+
+body.pdf-export .formal-title {
+  margin: 0 14px 10px;
+  font-size: 1.55rem;
+}
+
+body.pdf-export .formal-meta-row {
+  margin: 0 14px 10px;
+  gap: 14px;
+  font-size: 0.8rem;
+}
+
+body.pdf-export .formal-section {
+  margin: 0 14px 10px;
+}
+
+body.pdf-export .formal-section-title {
+  margin-bottom: 5px;
+  font-size: 0.84rem;
+}
+
+body.pdf-export .line-grid {
+  gap: 5px;
+}
+
+body.pdf-export .two-col {
+  gap: 6px 10px;
+}
+
+body.pdf-export .line-field {
+  gap: 8px;
+}
+
+body.pdf-export .line-label,
+body.pdf-export .line-value,
+body.pdf-export .advice-row,
+body.pdf-export .receipt-payment-box,
+body.pdf-export .receipt-table th,
+body.pdf-export .receipt-table td,
+body.pdf-export .doctor-cert-text,
+body.pdf-export .signature-item {
+  font-size: 0.75rem;
+}
+
+body.pdf-export .line-value {
+  padding: 0 2px 1px;
+}
+
+body.pdf-export .advice-checklist {
+  gap: 5px 16px;
+  margin-bottom: 5px;
+}
+
+body.pdf-export .advice-column {
+  gap: 5px;
+}
+
+body.pdf-export .check-mark {
+  font-size: 0.95rem;
+}
+
+body.pdf-export .doctor-cert-text {
+  margin-bottom: 7px;
+}
+
+body.pdf-export .doctor-sign-row,
+body.pdf-export .receipt-sign-row {
+  gap: 14px;
+}
+
+body.pdf-export .doctor-sign-left,
+body.pdf-export .doctor-sign-right {
+  gap: 7px;
+}
+
+body.pdf-export .verify-box {
+  width: 60px;
+  height: 60px;
+  font-size: 0.56rem;
+}
+
+body.pdf-export .verify-box-certificate {
+  margin-top: 6px;
+}
+
+body.pdf-export .receipt-payment-box {
+  margin: 0 14px 10px;
+  padding: 6px 8px;
+}
+
+body.pdf-export .receipt-table th,
+body.pdf-export .receipt-table td {
+  padding: 3px 5px;
+}
+
+body.pdf-export .receipt-table td:nth-child(2),
+body.pdf-export .receipt-table th:nth-child(2) {
+  width: 48px;
+}
+
+body.pdf-export .receipt-table td:nth-child(3),
+body.pdf-export .receipt-table td:nth-child(4),
+body.pdf-export .receipt-table th:nth-child(3),
+body.pdf-export .receipt-table th:nth-child(4) {
+  width: 135px;
+}
+
+body.pdf-export .document-note {
+  margin: 8px 14px 3px;
+  font-size: 0.56rem;
+}
+
+body.pdf-export .document-footer-bar {
+  padding: 6px 10px;
+  font-size: 0.64rem;
+}
+
 @media print {
   @page {
     size: A4 portrait;
