@@ -453,6 +453,15 @@ body {
   text-align: right;
 }
 
+.doc-brand-logo {
+  width: 290px;
+  max-width: 100%;
+  height: auto;
+  object-fit: contain;
+  display: block;
+  margin-left: auto;
+}
+
 .doc-brand-name {
   font-family: var(--font);
   font-size: 2rem;
@@ -744,6 +753,10 @@ body.pdf-export .doc-brand-row {
   padding: 14px 14px 0;
 }
 
+body.pdf-export .doc-brand-logo {
+  width: 220px;
+}
+
 body.pdf-export .doc-brand-name {
   font-size: 1.45rem;
 }
@@ -927,6 +940,10 @@ body.pdf-export .document-footer-bar {
     padding: 14px 14px 0;
   }
 
+  .doc-brand-logo {
+    width: 220px;
+  }
+
   .doc-brand-name {
     font-size: 1.45rem;
   }
@@ -1100,6 +1117,14 @@ body.pdf-export .document-footer-bar {
   .doctor-sign-row,
   .receipt-sign-row {
     flex-direction: column;
+  }
+
+  .doc-brand {
+    width: 100%;
+  }
+
+  .doc-brand-logo {
+    width: 220px;
   }
 
   .doc-divider {
