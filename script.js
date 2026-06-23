@@ -204,6 +204,7 @@ setInterval(updateClock, 1000);
 
 let currentCertificateData = null;
 let isSavingCertificate = false;
+const FORM_DRAFT_STORAGE_KEY = "medcert.formDraft";
 
 const feeIds = ["consultFee", "medFee", "procFee", "certFee"];
 const API_BASE_URL = getApiBaseUrl();
@@ -228,6 +229,46 @@ function calculateTotal() {
 
   document.getElementById("totalAmount").textContent = formatMoney(total);
   return total;
+}
+
+function getFormFields() {
+  return document.querySelectorAll("#formPage input, #formPage select, #formPage textarea");
+}
+
+function saveFormDraft() {
+  const draft = {};
+
+  getFormFields().forEach((element) => {
+    if (!element.id) return;
+    draft[element.id] = element.type === "checkbox" ? element.checked : element.value;
+  });
+
+  sessionStorage.setItem(FORM_DRAFT_STORAGE_KEY, JSON.stringify(draft));
+}
+
+function restoreFormDraft() {
+  const rawDraft = sessionStorage.getItem(FORM_DRAFT_STORAGE_KEY);
+  if (!rawDraft) return;
+
+  try {
+    const draft = JSON.parse(rawDraft);
+
+    Object.entries(draft).forEach(([id, value]) => {
+      const element = document.getElementById(id);
+      if (!element) return;
+
+      if (element.type === "checkbox") {
+        element.checked = Boolean(value);
+      } else {
+        element.value = value;
+      }
+    });
+
+    calculateTotal();
+  } catch (error) {
+    console.error("Restore form draft failed:", error);
+    sessionStorage.removeItem(FORM_DRAFT_STORAGE_KEY);
+  }
 }
 
 function persistPreviewState(certificateData) {
@@ -259,6 +300,13 @@ function restorePreviewState() {
 
 feeIds.forEach((id) => {
   document.getElementById(id).addEventListener("input", calculateTotal);
+});
+
+getFormFields().forEach((element) => {
+  const eventName = element.tagName === "SELECT" || element.type === "checkbox"
+    ? "change"
+    : "input";
+  element.addEventListener(eventName, saveFormDraft);
 });
 
 const REQUIRED_FIELDS = [
@@ -525,6 +573,7 @@ document.getElementById("clearBtn").addEventListener("click", () => {
 
   document.getElementById("errorBanner").classList.add("hidden");
   document.getElementById("totalAmount").textContent = formatMoney(0);
+  sessionStorage.removeItem(FORM_DRAFT_STORAGE_KEY);
   clearPreviewState();
   window.scrollTo({ top: 0, behavior: "smooth" });
 });
@@ -567,6 +616,7 @@ async function saveCertificate() {
     console.log("Saved certificate:", result);
     currentCertificateData = certificateData;
     renderPreview(certificateData);
+    saveFormDraft();
     persistPreviewState(certificateData);
     showPage("previewPage");
     saveButton.textContent = "Preparing PDF...";
@@ -598,4 +648,5 @@ async function saveCertificate() {
   }
 }
 
+restoreFormDraft();
 restorePreviewState();
