@@ -117,7 +117,8 @@ async function buildPdfFile(certificateData, shouldDownload = false) {
   };
 
   const worker = html2pdf().set(options).from(previewContainer);
-  const blob = await worker.outputPdf("blob");
+  const pdfDocument = await worker.toPdf().get("pdf");
+  const blob = pdfDocument.output("blob");
 
   if (shouldDownload) {
     await worker.save();
