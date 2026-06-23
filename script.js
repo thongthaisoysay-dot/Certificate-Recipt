@@ -197,6 +197,7 @@ updateClock();
 setInterval(updateClock, 1000);
 
 let currentCertificateData = null;
+let isSavingCertificate = false;
 
 const feeIds = ["consultFee", "medFee", "procFee", "certFee"];
 const API_BASE_URL = getApiBaseUrl();
@@ -502,9 +503,16 @@ document.addEventListener("click", (event) => {
 });
 
 async function saveCertificate() {
+  if (isSavingCertificate) return;
+
+  const saveButton = document.getElementById("saveBtn");
   const certificateData = collectData();
 
   try {
+    isSavingCertificate = true;
+    saveButton.disabled = true;
+    saveButton.textContent = "Saving...";
+
     const response = await fetch(`${API_BASE_URL}/certificates`, {
       method: "POST",
       headers: {
@@ -524,6 +532,7 @@ async function saveCertificate() {
     currentCertificateData = certificateData;
     renderPreview(certificateData);
     showPage("previewPage");
+    saveButton.textContent = "Preparing PDF...";
 
     try {
       const outcome = await sharePdfOrDownload(certificateData);
@@ -545,5 +554,9 @@ async function saveCertificate() {
   } catch (error) {
     console.error("Save failed:", error);
     alert(`Save failed: ${error.message}`);
+  } finally {
+    isSavingCertificate = false;
+    saveButton.disabled = false;
+    saveButton.textContent = "💾 Save Record";
   }
 }
