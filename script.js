@@ -198,7 +198,19 @@ setInterval(updateClock, 1000);
 let currentCertificateData = null;
 
 const feeIds = ["consultFee", "medFee", "procFee", "certFee"];
-const API_BASE_URL = window.location.origin;
+const API_BASE_URL = getApiBaseUrl();
+
+function getApiBaseUrl() {
+  const isLocalHost =
+    window.location.hostname === "127.0.0.1" ||
+    window.location.hostname === "localhost";
+
+  if (isLocalHost && window.location.port !== "3000") {
+    return "http://localhost:3000";
+  }
+
+  return window.location.origin;
+}
 
 function calculateTotal() {
   const total = feeIds.reduce((sum, id) => {
@@ -492,36 +504,37 @@ async function saveCertificate() {
   const certificateData = collectData();
 
   try {
-      const response = await fetch(`${API_BASE_URL}/certificates`, {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
+    const response = await fetch(`${API_BASE_URL}/certificates`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
       },
       body: JSON.stringify(certificateData),
     });
 
-    const result = await response.json();
+    const rawText = await response.text();
+    const result = rawText ? JSON.parse(rawText) : {};
 
     if (!response.ok) {
-      throw new Error(result.error || "Failed to save certificate");
-      }
-
-      console.log("Saved certificate:", result);
-      try {
-        const outcome = await sharePdfOrDownload(certificateData);
-        if (outcome === "shared") {
-          alert(`Save successful. Certificate ID: ${result.certificateId}\n\nPDF share sheet opened.`);
-        } else {
-          alert(`Save successful. Certificate ID: ${result.certificateId}\n\nPDF downloaded to your device.`);
-        }
-      } catch (shareError) {
-        console.error("Share/Download PDF failed:", shareError);
-        alert(
-          `Save successful. Certificate ID: ${result.certificateId}\n\nBut PDF export failed.`,
-        );
-      }
-    } catch (error) {
-      console.error("Save failed:", error);
-      alert(`Save failed: ${error.message}`);
+      throw new Error(result.error || result.message || "Failed to save certificate");
     }
+
+    console.log("Saved certificate:", result);
+    try {
+      const outcome = await sharePdfOrDownload(certificateData);
+      if (outcome === "shared") {
+        alert(`Save successful. Certificate ID: ${result.certificateId}\n\nPDF share sheet opened.`);
+      } else {
+        alert(`Save successful. Certificate ID: ${result.certificateId}\n\nPDF downloaded to your device.`);
+      }
+    } catch (shareError) {
+      console.error("Share/Download PDF failed:", shareError);
+      alert(
+        `Save successful. Certificate ID: ${result.certificateId}\n\nBut PDF export failed.`,
+      );
+    }
+  } catch (error) {
+    console.error("Save failed:", error);
+    alert(`Save failed: ${error.message}`);
+  }
 }
