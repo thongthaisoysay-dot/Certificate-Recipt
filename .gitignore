@@ -1,0 +1,4 @@
+node_modules/
+medical-certificates.db
+.DS_Store
+Thumbs.db

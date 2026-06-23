@@ -1,0 +1,654 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Medical Certificate System</title>
+    <link rel="stylesheet" href="./style.css" />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Playfair+Display:wght@600&display=swap"
+      rel="stylesheet"
+    />
+  </head>
+  <body>
+    <!-- ===== HEADER ===== -->
+    <header class="app-header">
+      <div class="header-inner">
+        <div class="brand">
+          <span class="brand-cross">✚</span>
+          <div>
+            <span class="brand-name">MedCert</span>
+            <span class="brand-sub">Clinical Document System</span>
+          </div>
+        </div>
+        <div class="header-meta">
+          <span id="clock" class="clock"></span>
+        </div>
+      </div>
+    </header>
+
+    <!-- ===== FORM PAGE ===== -->
+    <main id="formPage" class="page active">
+      <div class="page-container">
+        <!-- Section: Patient Information -->
+        <section class="card">
+          <div class="card-header">
+            <span class="section-tag">01</span>
+            <h2>Patient Information</h2>
+          </div>
+          <div class="card-body">
+            <div class="grid-2">
+              <div class="field">
+                <label for="patientName"
+                  >Patient Name <span class="req">*</span></label
+                >
+                <input
+                  type="text"
+                  id="patientName"
+                  placeholder="Full name as in ID"
+                />
+              </div>
+              <div class="field">
+                <label for="birthdate"
+                  >Date of Birth <span class="req">*</span></label
+                >
+                <input type="date" id="birthdate" />
+              </div>
+              <div class="field">
+                <label for="gender">Gender <span class="req">*</span></label>
+                <select id="gender">
+                  <option value="">— Select —</option>
+                  <option>Male</option>
+                  <option>Female</option>
+                  <option>Non-binary</option>
+                  <option>Prefer not to say</option>
+                </select>
+              </div>
+              <div class="field">
+                <label for="nationality">Nationality</label>
+                <input
+                  type="text"
+                  id="nationality"
+                  placeholder="e.g. Thai, American"
+                />
+              </div>
+              <div class="field">
+                <label for="idNumber"
+                  >ID / Passport No. <span class="req">*</span></label
+                >
+                <input
+                  type="text"
+                  id="idNumber"
+                  placeholder="National ID or Passport number"
+                />
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <!-- Section: Examination Details -->
+        <section class="card">
+          <div class="card-header">
+            <span class="section-tag">02</span>
+            <h2>Examination Details</h2>
+          </div>
+          <div class="card-body">
+            <div class="grid-2">
+              <div class="field">
+                <label for="examDate"
+                  >Date of Examination <span class="req">*</span></label
+                >
+                <input type="date" id="examDate" />
+              </div>
+              <div class="field">
+                <label for="examPlace"
+                  >Place of Examination <span class="req">*</span></label
+                >
+                <input
+                  type="text"
+                  id="examPlace"
+                  placeholder="Clinic / Hospital name"
+                />
+              </div>
+            </div>
+            <div class="field">
+              <label for="chiefComplaint"
+                >Chief Complaint <span class="req">*</span></label
+              >
+              <textarea
+                id="chiefComplaint"
+                rows="2"
+                placeholder="Patient's main presenting complaint..."
+              ></textarea>
+            </div>
+            <div class="field">
+              <label for="clinicalFindings">Clinical Findings</label>
+              <textarea
+                id="clinicalFindings"
+                rows="3"
+                placeholder="Vital signs, physical exam findings..."
+              ></textarea>
+            </div>
+            <div class="field">
+              <label for="diagnosis"
+                >Diagnosis <span class="req">*</span></label
+              >
+              <textarea
+                id="diagnosis"
+                rows="2"
+                placeholder="ICD-10 code and description..."
+              ></textarea>
+            </div>
+          </div>
+        </section>
+
+        <!-- Section: Treatment -->
+        <section class="card">
+          <div class="card-header">
+            <span class="section-tag">03</span>
+            <h2>Treatment</h2>
+          </div>
+          <div class="card-body">
+            <div class="field">
+              <label for="medication">Medication Prescribed</label>
+              <textarea
+                id="medication"
+                rows="2"
+                placeholder="Drug name, dosage, frequency, duration..."
+              ></textarea>
+            </div>
+            <div class="field">
+              <label for="procedure">Procedure Performed</label>
+              <textarea
+                id="procedure"
+                rows="2"
+                placeholder="Wound dressing, IV fluid, etc..."
+              ></textarea>
+            </div>
+          </div>
+        </section>
+
+        <!-- Section: Medical Advice -->
+        <section class="card">
+          <div class="card-header">
+            <span class="section-tag">04</span>
+            <h2>Medical Advice &amp; Fitness Assessment</h2>
+          </div>
+          <div class="card-body">
+            <div class="checkbox-grid">
+              <label class="checkbox-pill">
+                <input type="checkbox" id="fitToTravel" />
+                <span class="pill-body">
+                  <span class="pill-icon">✈️</span>
+                  Fit to Travel
+                </span>
+              </label>
+              <label class="checkbox-pill">
+                <input type="checkbox" id="fitToFly" />
+                <span class="pill-body">
+                  <span class="pill-icon">🛫</span>
+                  Fit to Fly
+                </span>
+              </label>
+              <label class="checkbox-pill">
+                <input type="checkbox" id="fitToWork" />
+                <span class="pill-body">
+                  <span class="pill-icon">💼</span>
+                  Fit to Work
+                </span>
+              </label>
+              <label class="checkbox-pill">
+                <input type="checkbox" id="sickLeave" />
+                <span class="pill-body">
+                  <span class="pill-icon">🏥</span>
+                  Sick Leave Required
+                </span>
+              </label>
+              <label class="checkbox-pill">
+                <input type="checkbox" id="bedRest" />
+                <span class="pill-body">
+                  <span class="pill-icon">🛏️</span>
+                  Bed Rest Advised
+                </span>
+              </label>
+              <label class="checkbox-pill">
+                <input type="checkbox" id="followUp" />
+                <span class="pill-body">
+                  <span class="pill-icon">📅</span>
+                  Follow-up Required
+                </span>
+              </label>
+            </div>
+            <div class="field mt-12">
+              <label for="additionalAdvice">Additional Medical Advice</label>
+              <textarea
+                id="additionalAdvice"
+                rows="2"
+                placeholder="Restrict activities, dietary advice, return precautions..."
+              ></textarea>
+            </div>
+          </div>
+        </section>
+
+        <!-- Section: Physician -->
+        <section class="card">
+          <div class="card-header">
+            <span class="section-tag">05</span>
+            <h2>Attending Physician</h2>
+          </div>
+          <div class="card-body">
+            <div class="grid-2">
+              <div class="field">
+                <label for="doctorName"
+                  >Doctor Name <span class="req">*</span></label
+                >
+                <input
+                  type="text"
+                  id="doctorName"
+                  placeholder="Dr. Full Name"
+                />
+              </div>
+              <div class="field">
+                <label for="licenseNo"
+                  >Medical License No. <span class="req">*</span></label
+                >
+                <input type="text" id="licenseNo" placeholder="e.g. ว.12345" />
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <!-- Section: Billing -->
+        <section class="card">
+          <div class="card-header">
+            <span class="section-tag">06</span>
+            <h2>Billing &amp; Payment</h2>
+          </div>
+          <div class="card-body">
+            <div class="grid-3">
+              <div class="field">
+                <label for="consultFee">Consultation Fee (฿)</label>
+                <input
+                  type="number"
+                  id="consultFee"
+                  placeholder="0.00"
+                  min="0"
+                  step="0.01"
+                />
+              </div>
+              <div class="field">
+                <label for="medFee">Medication Fee (฿)</label>
+                <input
+                  type="number"
+                  id="medFee"
+                  placeholder="0.00"
+                  min="0"
+                  step="0.01"
+                />
+              </div>
+              <div class="field">
+                <label for="procFee">Procedure Fee (฿)</label>
+                <input
+                  type="number"
+                  id="procFee"
+                  placeholder="0.00"
+                  min="0"
+                  step="0.01"
+                />
+              </div>
+              <div class="field">
+                <label for="certFee">Medical Certificate Fee (฿)</label>
+                <input
+                  type="number"
+                  id="certFee"
+                  placeholder="0.00"
+                  min="0"
+                  step="0.01"
+                />
+              </div>
+              <div class="field">
+                <label for="paymentMethod">Payment Method</label>
+                <select id="paymentMethod">
+                  <option value="">— Select —</option>
+                  <option>Cash</option>
+                  <option>Credit Card</option>
+                  <option>QR Payment / PromptPay</option>
+                  <option>Insurance</option>
+                  <option>Bank Transfer</option>
+                </select>
+              </div>
+              <div class="field total-display">
+                <label>Total Amount</label>
+                <div class="total-value" id="totalAmount">฿ 0.00</div>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <!-- Error Banner -->
+        <div id="errorBanner" class="error-banner hidden">
+          <span class="error-icon">⚠️</span>
+          <span id="errorMessage">Please fill all required fields.</span>
+        </div>
+
+        <!-- Generate Button -->
+        <div class="action-bar">
+          <button class="btn-secondary" id="clearBtn">Clear Form</button>
+          <button class="btn-primary" id="generateBtn">
+            Generate Documents →
+          </button>
+        </div>
+      </div>
+    </main>
+
+    <!-- ===== PREVIEW PAGE ===== -->
+    <div id="previewPage" class="page">
+      <div class="preview-bar">
+        <button class="btn-ghost" id="backBtn">← Back to Form</button>
+        <div class="preview-actions">
+          <div class="share-menu-wrapper">
+            <button class="btn-outline" id="shareBtn">📤 Share Text</button>
+            <div class="share-menu hidden" id="shareMenu">
+              <button class="share-option" id="shareLineBtn">LINE</button>
+              <button class="share-option" id="shareWechatBtn">WeChat</button>
+              <button class="share-option" id="shareWhatsappBtn">WhatsApp</button>
+            </div>
+          </div>
+          <button class="btn-outline" id="exportPdfBtn">📄 Export PDF</button>
+          <button class="btn-primary" id="saveBtn">💾 Save Record</button>
+        </div>
+      </div>
+
+      <div class="preview-container">
+        <!-- Certificate Document -->
+        <div class="document" id="previewDoc">
+          <div class="doc-topline"></div>
+          <div class="doc-brand-row">
+            <div class="doc-brand-spacer"></div>
+            <div class="doc-brand">
+              <div class="doc-brand-name">MedCert Clinic</div>
+              <div class="doc-brand-sub">Clinical Document System</div>
+            </div>
+          </div>
+          <div class="doc-divider doc-divider-muted"></div>
+
+          <h1 class="formal-title">MEDICAL CERTIFICATION</h1>
+
+          <div class="formal-meta-row">
+            <div><strong>Certificate No.:</strong> <span id="p-certificateNo"></span></div>
+            <div><strong>Date of Issue:</strong> <span id="p-issuedDateShort"></span></div>
+          </div>
+
+          <section class="formal-section">
+            <h3 class="formal-section-title">1. Patient Information:</h3>
+            <div class="line-grid two-col">
+              <div class="line-field wide">
+                <span class="line-label">Full Name:</span>
+                <span class="line-value" id="p-name"></span>
+              </div>
+              <div class="line-field">
+                <span class="line-label">Birthdate:</span>
+                <span class="line-value" id="p-birth"></span>
+              </div>
+              <div class="line-field">
+                <span class="line-label">Nationality:</span>
+                <span class="line-value" id="p-nationality"></span>
+              </div>
+              <div class="line-field">
+                <span class="line-label">ID/Passport No.:</span>
+                <span class="line-value" id="p-id"></span>
+              </div>
+              <div class="line-field">
+                <span class="line-label">Gender:</span>
+                <span class="line-value" id="p-gender"></span>
+              </div>
+            </div>
+          </section>
+
+          <section class="formal-section">
+            <h3 class="formal-section-title">2. Medical Consultation Details:</h3>
+            <div class="line-grid">
+              <div class="line-field wide">
+                <span class="line-label">Date of Examination:</span>
+                <span class="line-value" id="p-examDate"></span>
+              </div>
+              <div class="line-field wide">
+                <span class="line-label">Place of Examination:</span>
+                <span class="line-value" id="previewExamPlace"></span>
+              </div>
+            </div>
+          </section>
+
+          <section class="formal-section">
+            <h3 class="formal-section-title">3. Medical Findings:</h3>
+            <div class="line-grid">
+              <div class="line-field wide">
+                <span class="line-label">Chief Complaint:</span>
+                <span class="line-value" id="p-complaint"></span>
+              </div>
+              <div class="line-field wide multi-line">
+                <span class="line-label">History / Clinical Findings:</span>
+                <span class="line-value" id="p-findings"></span>
+              </div>
+              <div class="line-field wide">
+                <span class="line-label">Diagnosis / ICD-10:</span>
+                <span class="line-value" id="p-diagnosis"></span>
+              </div>
+              <div class="line-field wide multi-line">
+                <span class="line-label">Treatment / Investigation:</span>
+                <span class="line-value" id="p-medication"></span>
+              </div>
+              <div class="line-field wide">
+                <span class="line-label">Procedure / Operation:</span>
+                <span class="line-value" id="p-procedure"></span>
+              </div>
+            </div>
+          </section>
+
+          <section class="formal-section">
+            <h3 class="formal-section-title">4. Medical Advice:</h3>
+            <div class="advice-checklist">
+              <div class="advice-column">
+                <div class="advice-row"><span id="mark-fitToTravel" class="check-mark">☐</span> Fit to travel</div>
+                <div class="advice-row"><span id="mark-fitToFly" class="check-mark">☐</span> Fit to fly</div>
+                <div class="advice-row"><span id="mark-fitToWork" class="check-mark">☐</span> Fit to work</div>
+                <div class="advice-row"><span id="mark-followUp" class="check-mark">☐</span> Follow-up required</div>
+              </div>
+              <div class="advice-column">
+                <div class="advice-row"><span id="mark-sickLeave" class="check-mark">☐</span> Sick leave required</div>
+                <div class="advice-row"><span id="mark-bedRest" class="check-mark">☐</span> Bed rest advised</div>
+              </div>
+            </div>
+            <div class="remarks-box">
+              <span class="line-label">Additional Advice:</span>
+              <span class="line-value" id="p-additionalAdvice"></span>
+            </div>
+          </section>
+
+          <section class="formal-section">
+            <h3 class="formal-section-title">5. Remarks (if any):</h3>
+            <div class="remarks-line" id="p-remarks"></div>
+          </section>
+
+          <section class="formal-section doctor-cert">
+            <h3 class="formal-section-title">6. Doctor's Certification:</h3>
+            <p class="doctor-cert-text">
+              I hereby certify that I have personally examined and treated the above patient. The information provided herein is true and accurate to the best of my medical knowledge.
+            </p>
+            <div class="doctor-sign-row">
+              <div class="doctor-sign-left">
+                <div class="signature-item">
+                  <span class="line-label">Physician's Name:</span>
+                  <span class="line-value" id="p-doctor"></span>
+                </div>
+                <div class="signature-item signature-space">
+                  <span class="line-label">Signature:</span>
+                  <span class="sign-line-placeholder"></span>
+                </div>
+              </div>
+              <div class="doctor-sign-right">
+                <div class="signature-item">
+                  <span class="line-label">Medical License No:</span>
+                  <span class="line-value" id="p-license"></span>
+                </div>
+                <div class="signature-item">
+                  <span class="line-label">Date:</span>
+                  <span class="line-value" id="p-issuedDateShortBottom"></span>
+                </div>
+                <div class="verify-box verify-box-certificate">QR Verify</div>
+              </div>
+            </div>
+          </section>
+
+          <div class="document-note">
+            This is a digitally issued medical certificate for preview purposes.
+          </div>
+          <div class="document-footer-bar">
+            MedCert Clinic | Medical Certificate System
+          </div>
+        </div>
+
+        <div class="document-separator" aria-hidden="true"></div>
+
+        <!-- Receipt Document -->
+        <div class="document receipt-document new-page" id="receiptDoc">
+          <div class="doc-topline"></div>
+          <div class="doc-brand-row">
+            <div class="doc-brand-spacer"></div>
+            <div class="doc-brand">
+              <div class="doc-brand-name">MedCert Clinic</div>
+              <div class="doc-brand-sub">Clinical Document System</div>
+            </div>
+          </div>
+          <div class="doc-divider doc-divider-muted"></div>
+
+          <h1 class="formal-title receipt-title">RECEIPT</h1>
+
+          <div class="formal-meta-row">
+            <div><strong>Certificate No.:</strong> <span id="r-certificateNo"></span></div>
+            <div><strong>Date of Issue:</strong> <span id="r-issuedDate"></span></div>
+          </div>
+
+          <div class="receipt-payment-box">
+            <strong>Payment Method:</strong>
+            <span id="r-paymentMethod"></span>
+          </div>
+
+          <section class="formal-section">
+            <h3 class="formal-section-title">1. Patient / Payer Information</h3>
+            <div class="line-grid">
+              <div class="line-field wide">
+                <span class="line-label">Full Name:</span>
+                <span class="line-value" id="r-name"></span>
+              </div>
+              <div class="line-field wide">
+                <span class="line-label">ID/Passport No.:</span>
+                <span class="line-value" id="r-id"></span>
+              </div>
+              <div class="line-field wide">
+                <span class="line-label">Place of Examination:</span>
+                <span class="line-value" id="r-place"></span>
+              </div>
+            </div>
+          </section>
+
+          <section class="formal-section">
+            <h3 class="formal-section-title">2. Itemized Medical Services</h3>
+            <table class="receipt-table">
+              <thead>
+                <tr>
+                  <th>Description</th>
+                  <th>Qty</th>
+                  <th>Unit Price (THB)</th>
+                  <th>Amount (THB)</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td>Doctor Consultation Fee</td>
+                  <td>1</td>
+                  <td id="r-consult-unit"></td>
+                  <td id="r-consult-amount"></td>
+                </tr>
+                <tr>
+                  <td>Nursing Fee</td>
+                  <td>0</td>
+                  <td>฿ 0.00</td>
+                  <td>฿ 0.00</td>
+                </tr>
+                <tr>
+                  <td>Medication &amp; Supplies</td>
+                  <td>1</td>
+                  <td id="r-med-unit"></td>
+                  <td id="r-med-amount"></td>
+                </tr>
+                <tr>
+                  <td>Procedure Fee</td>
+                  <td>1</td>
+                  <td id="r-proc-unit"></td>
+                  <td id="r-proc-amount"></td>
+                </tr>
+                <tr>
+                  <td>Medical Certificate Fee</td>
+                  <td>1</td>
+                  <td id="r-cert-unit"></td>
+                  <td id="r-cert-amount"></td>
+                </tr>
+              </tbody>
+              <tfoot>
+                <tr>
+                  <td colspan="2" rowspan="5" class="receipt-empty"></td>
+                  <td>Subtotal</td>
+                  <td id="r-subtotal"></td>
+                </tr>
+                <tr>
+                  <td>Discount</td>
+                  <td id="r-discount"></td>
+                </tr>
+                <tr>
+                  <td>Net Total</td>
+                  <td id="r-net-total"></td>
+                </tr>
+                <tr>
+                  <td>VAT 7%</td>
+                  <td id="r-vat"></td>
+                </tr>
+                <tr>
+                  <td>Grand Total</td>
+                  <td id="r-grand-total"></td>
+                </tr>
+              </tfoot>
+            </table>
+          </section>
+
+          <section class="formal-section receipt-sign-section">
+            <h3 class="formal-section-title">3. Authorized Signature</h3>
+            <div class="receipt-sign-row">
+              <div>
+                <div class="signature-item">
+                  <span class="line-label">Received by:</span>
+                  <span class="sign-line-placeholder long"></span>
+                </div>
+                <div class="signature-item">
+                  <span class="line-label">Date:</span>
+                  <span class="line-value" id="r-issuedDateBottom"></span>
+                </div>
+              </div>
+              <div class="verify-box">QR Verify</div>
+            </div>
+          </section>
+
+          <div class="document-note">
+            This is a digitally issued receipt for preview purposes.
+          </div>
+          <div class="document-footer-bar">
+            MedCert Clinic | Medical Receipt System
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
+    <script src="./script.js"></script>
+  </body>
+</html>

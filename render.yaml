@@ -1,0 +1,14 @@
+services:
+  - type: web
+    name: medical-certificate
+    runtime: node
+    buildCommand: npm install
+    startCommand: npm start
+    plan: free
+    disk:
+      name: medical-certificate-data
+      mountPath: /var/data
+      sizeGB: 1
+    envVars:
+      - key: DB_PATH
+        value: /var/data/medical-certificates.db
