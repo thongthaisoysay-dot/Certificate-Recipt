@@ -502,7 +502,6 @@ document.addEventListener("click", (event) => {
 
 async function saveCertificate() {
   const certificateData = collectData();
-  const shareMenu = document.getElementById("shareMenu");
 
   try {
     const response = await fetch(`${API_BASE_URL}/certificates`, {
@@ -524,8 +523,24 @@ async function saveCertificate() {
     currentCertificateData = certificateData;
     renderPreview(certificateData);
     showPage("previewPage");
-    shareMenu.classList.remove("hidden");
-    alert(`Save successful. Certificate ID: ${result.certificateId}`);
+
+    try {
+      const outcome = await sharePdfOrDownload(certificateData);
+      if (outcome === "shared") {
+        alert(
+          `Save successful. Certificate ID: ${result.certificateId}\n\nPDF share sheet opened. Send it to the patient for printing.`,
+        );
+      } else {
+        alert(
+          `Save successful. Certificate ID: ${result.certificateId}\n\nPDF downloaded. Send the file to the patient for printing.`,
+        );
+      }
+    } catch (shareError) {
+      console.error("Share/Download PDF failed:", shareError);
+      alert(
+        `Save successful. Certificate ID: ${result.certificateId}\n\nBut PDF export failed.`,
+      );
+    }
   } catch (error) {
     console.error("Save failed:", error);
     alert(`Save failed: ${error.message}`);
