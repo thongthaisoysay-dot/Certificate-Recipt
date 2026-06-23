@@ -230,6 +230,33 @@ function calculateTotal() {
   return total;
 }
 
+function persistPreviewState(certificateData) {
+  sessionStorage.setItem("medcert.previewData", JSON.stringify(certificateData));
+  sessionStorage.setItem("medcert.activePage", "previewPage");
+}
+
+function clearPreviewState() {
+  sessionStorage.removeItem("medcert.previewData");
+  sessionStorage.removeItem("medcert.activePage");
+}
+
+function restorePreviewState() {
+  const savedPage = sessionStorage.getItem("medcert.activePage");
+  const savedData = sessionStorage.getItem("medcert.previewData");
+
+  if (savedPage !== "previewPage" || !savedData) return;
+
+  try {
+    const certificateData = JSON.parse(savedData);
+    currentCertificateData = certificateData;
+    renderPreview(certificateData);
+    showPage("previewPage");
+  } catch (error) {
+    console.error("Restore preview state failed:", error);
+    clearPreviewState();
+  }
+}
+
 feeIds.forEach((id) => {
   document.getElementById(id).addEventListener("input", calculateTotal);
 });
@@ -446,10 +473,12 @@ document.getElementById("generateBtn").addEventListener("click", () => {
   console.log(certificateData);
 
   renderPreview(certificateData);
+  persistPreviewState(certificateData);
   showPage("previewPage");
 });
 
 document.getElementById("backBtn").addEventListener("click", () => {
+  sessionStorage.setItem("medcert.activePage", "formPage");
   showPage("formPage");
 });
 
@@ -496,6 +525,7 @@ document.getElementById("clearBtn").addEventListener("click", () => {
 
   document.getElementById("errorBanner").classList.add("hidden");
   document.getElementById("totalAmount").textContent = formatMoney(0);
+  clearPreviewState();
   window.scrollTo({ top: 0, behavior: "smooth" });
 });
 
@@ -537,6 +567,7 @@ async function saveCertificate() {
     console.log("Saved certificate:", result);
     currentCertificateData = certificateData;
     renderPreview(certificateData);
+    persistPreviewState(certificateData);
     showPage("previewPage");
     saveButton.textContent = "Preparing PDF...";
 
@@ -566,3 +597,5 @@ async function saveCertificate() {
     saveButton.textContent = "💾 Save Record";
   }
 }
+
+restorePreviewState();
